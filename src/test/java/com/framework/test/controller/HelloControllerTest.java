@@ -13,35 +13,35 @@ import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
-@RunWith(SpringRunner.class)
-@WebMvcTest(controllers = HelloController.class)
+//@RunWith(SpringRunner.class)
+//@WebMvcTest(controllers = HelloController.class)
 public class HelloControllerTest {
 
-	@Autowired
-	private MockMvc mvc; 
-	
-	@Test
-	public void hello() throws Exception {
-		String hello = "hello";
-		
-		mvc.perform(get("/hello"))
-					.andExpect(status().isOk())
-					.andExpect(content().string(hello));
-	}
-	
-	@Test
-	public void hello_dto() throws Exception {
-		String name = "hello";
-		int amount = 1000;
-		
-		// jsonPath 
-		//   - JSON ÀÀ´ä°ªÀ» À‰µåº°·Î °ËÁõÇÒ ¼ö ÀÖ´Â ¸Þ¼ÒµåÀÌ´Ù. 
-		//   - $¸¦ ±âÁØÀ¸·Î ÇÊµå¸íÀ» ¸í½ÃÇÑ´Ù. 
-		mvc.perform(get("/hello/dto")
-						.param("name", name)
-						.param("amount", String.valueOf(amount)))
-			.andExpect(status().isOk())
-			.andExpect(jsonPath("$.name", is(name)))
-			.andExpect(jsonPath("$.amount", is(amount)));
-	}
+//	@Autowired
+//	private MockMvc mvc; 
+//	
+//	@Test
+//	public void hello() throws Exception {
+//		String hello = "hello";
+//		
+//		mvc.perform(get("/hello"))
+//					.andExpect(status().isOk())
+//					.andExpect(content().string(hello));
+//	}
+//	
+//	@Test
+//	public void hello_dto() throws Exception {
+//		String name = "hello";
+//		int amount = 1000;
+//		
+//		// jsonPath 
+//		//   - JSON ï¿½ï¿½ï¿½ä°ªï¿½ï¿½ ï¿½ï¿½ï¿½åº°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½Þ¼Òµï¿½ï¿½Ì´ï¿½. 
+//		//   - $ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Êµï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½. 
+//		mvc.perform(get("/hello/dto")
+//						.param("name", name)
+//						.param("amount", String.valueOf(amount)))
+//			.andExpect(status().isOk())
+//			.andExpect(jsonPath("$.name", is(name)))
+//			.andExpect(jsonPath("$.amount", is(amount)));
+//	}
 }
