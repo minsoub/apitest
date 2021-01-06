@@ -26,28 +26,36 @@ public class TestController {
 		byte[] temp = new byte[1024];
 		int length = 0;
 		
-		String fileName = "c:/a.pdf";
+		String fileName = "C://DevPJT/workspace/test2/lib/000310_20180750000231.hwp"; 
 		
 		File file = new File(fileName);
 		fis = new FileInputStream(file);
 		
 		try {
 			os = resp.getOutputStream();
-			String s1 = "16\r\n";
-			os.write(s1.getBytes(), 0, s1.getBytes().length);
+			resp.setHeader("Transfer-Encoding", "chunked");  
+			resp.setContentType("application/octet-stream");
 			
-			s1 = "tesdfafdafda.pdf\r\n";
-			os.write(s1.getBytes(), 0, s1.getBytes().length);
-			
-			s1 = file.length()+"\r\n";
-			os.write(s1.getBytes(), 0, s1.getBytes().length);
+			String s1 = "000310_20180750000231.hwp"; 
+			String len = Integer.toHexString(s1.length());
+			os.write(len.getBytes());   
+			os.write(13);
+			os.write(10);
+			os.write(s1.getBytes());  
+			os.write(13);
+			os.write(10);
+			s1 = Integer.toHexString((int)(file.length())); 
+			System.out.println("file length => " + file.length());
+			os.write(s1.getBytes());   
+			os.write(13);
+			os.write(10);
 			
 			while((length = fis.read(temp)) > 0) {
 				os.write(temp, 0, length);
 			}
-			os.write(0x00);
-			s1 = "\r\n";
-			os.write(s1.getBytes(), 0, s1.getBytes().length);
+			os.write(13); 
+			os.write(10);
+			os.flush();
 			System.out.println("file write end...");
 		}catch(IOException e) {
 			e.printStackTrace();
